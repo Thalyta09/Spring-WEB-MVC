@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../static/CSS/jedi.css" th:href="@{/CSS/jedi.css}" media="screen" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+          crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+            integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js"
+            integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/"
+            crossorigin="anonymous"></script>
+
+    <title>Jedi</title>
+
+</head>
+
+<body>
+
+    <div class="container-xl">
+
+        <div th:if="${message}" th:text="${message}" class="alert alert-success" role="alert"/>
+
+        <div class="search">
+            <form th:action="@{/search}" method="get">
+                <button class="btn btn-secondary" type="submit">Search</button>
+                <input type="text" class="input-search" name="name" placeholder="Search By Name"/>
+            </form>
+        </div>
+        <br />
+
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="table-table">
+
+                    <div class="title">
+                        <div class="col-sm-6"><h3>Jedi Forces</h3></div>
+                        <div class="col-sm-6">
+                            <a th:href="@{/new-jedi}" class="btn btn-secondary" role="button">New Jedi</a>
+                            <a th:href="@{/jedi}" class="btn btn-secondary" role="button">Load Jedi</a>
+                        </div>
+                    </div>
+
+                    <table class="table table-striped table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Last Name</th>
+                                <th scope="col">Actionss</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="jedi : ${allJedi}">
+                                <td th:text="${jedi.id}"></td>
+                                <td th:text="${jedi.name}"></td>
+                                <td th:text="${jedi.lastName}"></td>
+                                <td>
+                                    <a th:href="@{/jedi/__${jedi.id}__/update}" class="btn btn-warning btn-sm" role="button">Update</a>
+                                    <a th:href="@{/jedi/__${jedi.id}__/delete}" onClick="return confirm('Delete?')" class="btn btn-danger btn-sm" role="button">Delete</a>
+                                </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
